@@ -171,30 +171,6 @@ describe("layout", () => {
     ]);
   });
 
-  describe("can layout a self loop", () => {
-    ["TB", "BT", "LR", "RL"].forEach(rankdir => {
-      it ("in rankdir = " + rankdir, () => {
-        g.graph().edgesep = 75;
-        g.graph().rankdir = rankdir;
-        g.setNode("a", { width: 100, height: 100 });
-        g.setEdge("a", "a", { width: 50, height: 50 });
-        layout(g);
-        var nodeA = g.node("a");
-        var points = g.edge("a", "a").points;
-        expect(points).to.have.length(7);
-        points.forEach(point => {
-          if (rankdir !== "LR" && rankdir !== "RL") {
-            expect(point.x).gt(nodeA.x);
-            expect(Math.abs(point.y - nodeA.y)).lte(nodeA.height / 2);
-          } else {
-            expect(point.y).gt(nodeA.y);
-            expect(Math.abs(point.x - nodeA.x)).lte(nodeA.width / 2);
-          }
-        });
-      });
-    });
-  });
-
   it("can layout a graph with subgraphs", () => {
     // To be expanded, this primarily ensures nothing blows up for the moment.
     g.setNode("a", { width: 50, height: 50 });

@@ -176,66 +176,6 @@ describe("util", () => {
     });
   });
 
-  describe("normalizeRanks", () => {
-    it("adjust ranks such that all are >= 0, and at least one is 0", () => {
-      var g = new Graph()
-        .setNode("a", { rank: 3 })
-        .setNode("b", { rank: 2 })
-        .setNode("c", { rank: 4 });
-
-      util.normalizeRanks(g);
-
-      expect(g.node("a").rank).to.equal(1);
-      expect(g.node("b").rank).to.equal(0);
-      expect(g.node("c").rank).to.equal(2);
-    });
-
-    it("works for negative ranks", () => {
-      var g = new Graph()
-        .setNode("a", { rank: -3 })
-        .setNode("b", { rank: -2 });
-
-      util.normalizeRanks(g);
-
-      expect(g.node("a").rank).to.equal(0);
-      expect(g.node("b").rank).to.equal(1);
-    });
-
-    it("does not assign a rank to subgraphs", () => {
-      var g = new Graph({ compound: true })
-        .setNode("a", { rank: 0 })
-        .setNode("sg", {})
-        .setParent("a", "sg");
-
-      util.normalizeRanks(g);
-
-      expect(g.node("sg")).to.not.have.property("rank");
-      expect(g.node("a").rank).to.equal(0);
-    });
-  });
-
-  describe("removeEmptyRanks", () => {
-    it("Removes border ranks without any nodes", () => {
-      var g = new Graph()
-        .setGraph({ nodeRankFactor: 4 })
-        .setNode("a", { rank: 0 })
-        .setNode("b", { rank: 4 });
-      util.removeEmptyRanks(g);
-      expect(g.node("a").rank).equals(0);
-      expect(g.node("b").rank).equals(1);
-    });
-
-    it("Does not remove non-border ranks", () => {
-      var g = new Graph()
-        .setGraph({ nodeRankFactor: 4 })
-        .setNode("a", { rank: 0 })
-        .setNode("b", { rank: 8 });
-      util.removeEmptyRanks(g);
-      expect(g.node("a").rank).equals(0);
-      expect(g.node("b").rank).equals(2);
-    });
-  });
-
   describe("range", () => {
     it("Builds an array to the limit", () => {
       const range = util.range(4);

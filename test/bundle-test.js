@@ -17,8 +17,8 @@ describe("bundle", () => {
 
   it("can do trivial layout", () => {
     var g = new graphlib.Graph().setGraph({});
-    g.setNode("a", { label: "a", width: 50, height: 100 });
-    g.setNode("b", { label: "b", width: 50, height: 100 });
+    g.setNode("a", { label: "a", width: 50, height: 100, rank: 0 });
+    g.setNode("b", { label: "b", width: 50, height: 100, rank: 2 });
     g.setEdge("a", "b", { label: "ab", width: 50, height: 100 });
 
     dagre.layout(g);

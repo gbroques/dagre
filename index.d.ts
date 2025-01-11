@@ -91,7 +91,6 @@ declare module '@dagrejs/dagre' {
     ranksep?: number | undefined;
     marginx?: number | undefined;
     marginy?: number | undefined;
-    ranker?: string | undefined;
   }
 
   export interface NodeConfig {
